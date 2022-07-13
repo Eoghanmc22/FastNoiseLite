@@ -742,8 +742,8 @@ public class FastNoiseLite {
 
         int i = (int) Math.floor(x);
         int j = (int) Math.floor(y);
-        final float xi = x - i;
-        final float yi = y - j;
+        final float xi = (float) (x - i);
+        final float yi = (float) (y - j);
 
         final float t = (xi + yi) * G2;
         final float x0 = xi - t;
@@ -801,12 +801,12 @@ public class FastNoiseLite {
          * x = r - x; y = r - y; z = r - z;
          */
 
-        int i = Math.round(x);
-        int j = Math.round(y);
-        int k = Math.round(z);
-        float x0 = x - i;
-        float y0 = y - j;
-        float z0 = z - k;
+        int i = (int) Math.round(x);
+        int j = (int) Math.round(y);
+        int k = (int) Math.round(z);
+        float x0 = (float) (x - i);
+        float y0 = (float) (y - j);
+        float z0 = (float) (z - k);
 
         int xNSign = (int) (-1.0f - x0) | 1;
         int yNSign = (int) (-1.0f - y0) | 1;
@@ -892,39 +892,39 @@ public class FastNoiseLite {
 
         int i = (int) Math.floor(x);
         int j = (int) Math.floor(y);
-        final float xi = x - i;
-        final float yi = y - j;
+        final float xi = (float) (x - i);
+        final float yi = (float) (y - j);
 
         i *= PrimeX;
         j *= PrimeY;
         final int i1 = i + PrimeX;
         final int j1 = j + PrimeY;
 
-        final float t = (xi + yi) * G2;
+        final float t = (xi + yi) * (float) G2;
         final float x0 = xi - t;
         final float y0 = yi - t;
 
         final float a0 = (2.0f / 3.0f) - x0 * x0 - y0 * y0;
         float value = (a0 * a0) * (a0 * a0) * gradCoord(seed, i, j, x0, y0);
 
-        final float a1 = 2 * (1 - 2 * G2) * (1 / G2 - 2) * t + ((-2 * (1 - 2 * G2) * (1 - 2 * G2)) + a0);
-        final float x1 = x0 - (1 - 2 * G2);
-        final float y1 = y0 - (1 - 2 * G2);
+        final float a1 = (float) (2 * (1 - 2 * G2) * (1 / G2 - 2)) * t + ((float) (-2 * (1 - 2 * G2) * (1 - 2 * G2)) + a0);
+        final float x1 = x0 - (float) (1 - 2 * G2);
+        final float y1 = y0 - (float) (1 - 2 * G2);
         value += (a1 * a1) * (a1 * a1) * gradCoord(seed, i1, j1, x1, y1);
 
         // Nested conditionals were faster than compact bit logic/arithmetic.
         final float xmyi = xi - yi;
         if (t > G2) {
             if (xi + xmyi > 1) {
-                final float x2 = x0 + (3 * G2 - 2);
-                final float y2 = y0 + (3 * G2 - 1);
+                final float x2 = x0 + (float) (3 * G2 - 2);
+                final float y2 = y0 + (float) (3 * G2 - 1);
                 final float a2 = (2.0f / 3.0f) - x2 * x2 - y2 * y2;
                 if (a2 > 0) {
                     value += (a2 * a2) * (a2 * a2) * gradCoord(seed, i + (PrimeX << 1), j + PrimeY, x2, y2);
                 }
             } else {
-                final float x2 = x0 + G2;
-                final float y2 = y0 + (G2 - 1);
+                final float x2 = x0 + (float) G2;
+                final float y2 = y0 + (float) (G2 - 1);
                 final float a2 = (2.0f / 3.0f) - x2 * x2 - y2 * y2;
                 if (a2 > 0) {
                     value += (a2 * a2) * (a2 * a2) * gradCoord(seed, i, j + PrimeY, x2, y2);
@@ -932,15 +932,15 @@ public class FastNoiseLite {
             }
 
             if (yi - xmyi > 1) {
-                final float x3 = x0 + (3 * G2 - 1);
-                final float y3 = y0 + (3 * G2 - 2);
+                final float x3 = x0 + (float) (3 * G2 - 1);
+                final float y3 = y0 + (float) (3 * G2 - 2);
                 final float a3 = (2.0f / 3.0f) - x3 * x3 - y3 * y3;
                 if (a3 > 0) {
                     value += (a3 * a3) * (a3 * a3) * gradCoord(seed, i + PrimeX, j + (PrimeY << 1), x3, y3);
                 }
             } else {
-                final float x3 = x0 + (G2 - 1);
-                final float y3 = y0 + G2;
+                final float x3 = x0 + (float) (G2 - 1);
+                final float y3 = y0 + (float) G2;
                 final float a3 = (2.0f / 3.0f) - x3 * x3 - y3 * y3;
                 if (a3 > 0) {
                     value += (a3 * a3) * (a3 * a3) * gradCoord(seed, i + PrimeX, j, x3, y3);
@@ -948,15 +948,15 @@ public class FastNoiseLite {
             }
         } else {
             if (xi + xmyi < 0) {
-                final float x2 = x0 + (1 - G2);
-                final float y2 = y0 - G2;
+                final float x2 = x0 + (float) (1 - G2);
+                final float y2 = y0 - (float) G2;
                 final float a2 = (2.0f / 3.0f) - x2 * x2 - y2 * y2;
                 if (a2 > 0) {
                     value += (a2 * a2) * (a2 * a2) * gradCoord(seed, i - PrimeX, j, x2, y2);
                 }
             } else {
-                final float x2 = x0 + (G2 - 1);
-                final float y2 = y0 + G2;
+                final float x2 = x0 + (float) (G2 - 1);
+                final float y2 = y0 + (float) G2;
                 final float a2 = (2.0f / 3.0f) - x2 * x2 - y2 * y2;
                 if (a2 > 0) {
                     value += (a2 * a2) * (a2 * a2) * gradCoord(seed, i + PrimeX, j, x2, y2);
@@ -964,15 +964,15 @@ public class FastNoiseLite {
             }
 
             if (yi < xmyi) {
-                final float x2 = x0 - G2;
-                final float y2 = y0 - (G2 - 1);
+                final float x2 = x0 - (float) G2;
+                final float y2 = y0 - (float) (G2 - 1);
                 final float a2 = (2.0f / 3.0f) - x2 * x2 - y2 * y2;
                 if (a2 > 0) {
                     value += (a2 * a2) * (a2 * a2) * gradCoord(seed, i, j - PrimeY, x2, y2);
                 }
             } else {
-                final float x2 = x0 + G2;
-                final float y2 = y0 + (G2 - 1);
+                final float x2 = x0 + (float) G2;
+                final float y2 = y0 + (float) (G2 - 1);
                 final float a2 = (2.0f / 3.0f) - x2 * x2 - y2 * y2;
                 if (a2 > 0) {
                     value += (a2 * a2) * (a2 * a2) * gradCoord(seed, i, j + PrimeY, x2, y2);
@@ -996,9 +996,9 @@ public class FastNoiseLite {
         int i = (int) Math.floor(x);
         int j = (int) Math.floor(y);
         int k = (int) Math.floor(z);
-        final float xi = x - i;
-        final float yi = y - j;
-        final float zi = z - k;
+        final float xi = (float) (x - i);
+        final float yi = (float) (y - j);
+        final float zi = (float) (z - k);
 
         i *= PrimeX;
         j *= PrimeY;
@@ -1143,8 +1143,8 @@ public class FastNoiseLite {
     // Cellular Noise
 
     private float singleCellular(final int seed, final /*FNLfloat*/ float x, final /*FNLfloat*/ float y) {
-        final int xr = Math.round(x);
-        final int yr = Math.round(y);
+        final int xr = (int) Math.round(x);
+        final int yr = (int) Math.round(y);
 
         float distance0 = Float.MAX_VALUE;
         float distance1 = Float.MAX_VALUE;
@@ -1166,8 +1166,8 @@ public class FastNoiseLite {
                         final int hash = hash(seed, xPrimed, yPrimed);
                         final int idx = hash & (255 << 1);
 
-                        final float vecX = (xi - x) + RandVecs2D[idx] * cellularJitter;
-                        final float vecY = (yi - y) + RandVecs2D[idx | 1] * cellularJitter;
+                        final float vecX = (float) (xi - x) + RandVecs2D[idx] * cellularJitter;
+                        final float vecY = (float) (yi - y) + RandVecs2D[idx | 1] * cellularJitter;
 
                         final float newDistance = vecX * vecX + vecY * vecY;
 
@@ -1189,8 +1189,8 @@ public class FastNoiseLite {
                         final int hash = hash(seed, xPrimed, yPrimed);
                         final int idx = hash & (255 << 1);
 
-                        final float vecX = (xi - x) + RandVecs2D[idx] * cellularJitter;
-                        final float vecY = (yi - y) + RandVecs2D[idx | 1] * cellularJitter;
+                        final float vecX = (float) (xi - x) + RandVecs2D[idx] * cellularJitter;
+                        final float vecY = (float) (yi - y) + RandVecs2D[idx | 1] * cellularJitter;
 
                         final float newDistance = Math.abs(vecX) + Math.abs(vecY);
 
@@ -1212,8 +1212,8 @@ public class FastNoiseLite {
                         final int hash = hash(seed, xPrimed, yPrimed);
                         final int idx = hash & (255 << 1);
 
-                        final float vecX = (xi - x) + RandVecs2D[idx] * cellularJitter;
-                        final float vecY = (yi - y) + RandVecs2D[idx | 1] * cellularJitter;
+                        final float vecX = (float) (xi - x) + RandVecs2D[idx] * cellularJitter;
+                        final float vecY = (float) (yi - y) + RandVecs2D[idx | 1] * cellularJitter;
 
                         final float newDistance = (Math.abs(vecX) + Math.abs(vecY)) + (vecX * vecX + vecY * vecY);
 
@@ -1258,9 +1258,9 @@ public class FastNoiseLite {
     }
 
     private float singleCellular(final int seed, final /*FNLfloat*/ float x, final /*FNLfloat*/ float y, final /*FNLfloat*/ float z) {
-        final int xr = Math.round(x);
-        final int yr = Math.round(y);
-        final int zr = Math.round(z);
+        final int xr = (int) Math.round(x);
+        final int yr = (int) Math.round(y);
+        final int zr = (int) Math.round(z);
 
         float distance0 = Float.MAX_VALUE;
         float distance1 = Float.MAX_VALUE;
@@ -1285,9 +1285,9 @@ public class FastNoiseLite {
                             final int hash = hash(seed, xPrimed, yPrimed, zPrimed);
                             final int idx = hash & (255 << 2);
 
-                            final float vecX = (xi - x) + RandVecs3D[idx] * cellularJitter;
-                            final float vecY = (yi - y) + RandVecs3D[idx | 1] * cellularJitter;
-                            final float vecZ = (zi - z) + RandVecs3D[idx | 2] * cellularJitter;
+                            final float vecX = (float) (xi - x) + RandVecs3D[idx] * cellularJitter;
+                            final float vecY = (float) (yi - y) + RandVecs3D[idx | 1] * cellularJitter;
+                            final float vecZ = (float) (zi - z) + RandVecs3D[idx | 2] * cellularJitter;
 
                             final float newDistance = vecX * vecX + vecY * vecY + vecZ * vecZ;
 
@@ -1314,9 +1314,9 @@ public class FastNoiseLite {
                             final int hash = hash(seed, xPrimed, yPrimed, zPrimed);
                             final int idx = hash & (255 << 2);
 
-                            final float vecX = (xi - x) + RandVecs3D[idx] * cellularJitter;
-                            final float vecY = (yi - y) + RandVecs3D[idx | 1] * cellularJitter;
-                            final float vecZ = (zi - z) + RandVecs3D[idx | 2] * cellularJitter;
+                            final float vecX = (float) (xi - x) + RandVecs3D[idx] * cellularJitter;
+                            final float vecY = (float) (yi - y) + RandVecs3D[idx | 1] * cellularJitter;
+                            final float vecZ = (float) (zi - z) + RandVecs3D[idx | 2] * cellularJitter;
 
                             final float newDistance = Math.abs(vecX) + Math.abs(vecY) + Math.abs(vecZ);
 
@@ -1343,9 +1343,9 @@ public class FastNoiseLite {
                             final int hash = hash(seed, xPrimed, yPrimed, zPrimed);
                             final int idx = hash & (255 << 2);
 
-                            final float vecX = (xi - x) + RandVecs3D[idx] * cellularJitter;
-                            final float vecY = (yi - y) + RandVecs3D[idx | 1] * cellularJitter;
-                            final float vecZ = (zi - z) + RandVecs3D[idx | 2] * cellularJitter;
+                            final float vecX = (float) (xi - x) + RandVecs3D[idx] * cellularJitter;
+                            final float vecY = (float) (yi - y) + RandVecs3D[idx | 1] * cellularJitter;
+                            final float vecZ = (float) (zi - z) + RandVecs3D[idx | 2] * cellularJitter;
 
                             final float newDistance = (Math.abs(vecX) + Math.abs(vecY) + Math.abs(vecZ)) + (vecX * vecX + vecY * vecY + vecZ * vecZ);
 
@@ -1400,8 +1400,8 @@ public class FastNoiseLite {
         int x0 = (int) Math.floor(x);
         int y0 = (int) Math.floor(y);
 
-        final float xd0 = x - x0;
-        final float yd0 = y - y0;
+        final float xd0 = (float) (x - x0);
+        final float yd0 = (float) (y - y0);
         final float xd1 = xd0 - 1;
         final float yd1 = yd0 - 1;
 
@@ -1424,9 +1424,9 @@ public class FastNoiseLite {
         int y0 = (int) Math.floor(y);
         int z0 = (int) Math.floor(z);
 
-        final float xd0 = x - x0;
-        final float yd0 = y - y0;
-        final float zd0 = z - z0;
+        final float xd0 = (float) (x - x0);
+        final float yd0 = (float) (y - y0);
+        final float zd0 = (float) (z - z0);
         final float xd1 = xd0 - 1;
         final float yd1 = yd0 - 1;
         final float zd1 = zd0 - 1;
@@ -1460,8 +1460,8 @@ public class FastNoiseLite {
         int x1 = (int) Math.floor(x);
         int y1 = (int) Math.floor(y);
 
-        final float xs = x - x1;
-        final float ys = y - y1;
+        final float xs = (float) (x - x1);
+        final float ys = (float) (y - y1);
 
         x1 *= PrimeX;
         y1 *= PrimeY;
@@ -1480,9 +1480,9 @@ public class FastNoiseLite {
         int y1 = (int) Math.floor(y);
         int z1 = (int) Math.floor(z);
 
-        final float xs = x - x1;
-        final float ys = y - y1;
-        final float zs = z - z1;
+        final float xs = (float) (x - x1);
+        final float ys = (float) (y - y1);
+        final float zs = (float) (z - z1);
 
         x1 *= PrimeX;
         y1 *= PrimeY;
@@ -1509,8 +1509,8 @@ public class FastNoiseLite {
         int x0 = (int) Math.floor(x);
         int y0 = (int) Math.floor(y);
 
-        final float xs = interpHermite(x - x0);
-        final float ys = interpHermite(y - y0);
+        final float xs = interpHermite((float) (x - x0));
+        final float ys = interpHermite((float) (y - y0));
 
         x0 *= PrimeX;
         y0 *= PrimeY;
@@ -1528,9 +1528,9 @@ public class FastNoiseLite {
         int y0 = (int) Math.floor(y);
         int z0 = (int) Math.floor(z);
 
-        final float xs = interpHermite(x - x0);
-        final float ys = interpHermite(y - y0);
-        final float zs = interpHermite(z - z0);
+        final float xs = interpHermite((float) (x - x0));
+        final float ys = interpHermite((float) (y - y0));
+        final float zs = interpHermite((float) (z - z0));
 
         x0 *= PrimeX;
         y0 *= PrimeY;
@@ -1821,8 +1821,8 @@ public class FastNoiseLite {
         int x0 = (int) Math.floor(xf);
         int y0 = (int) Math.floor(yf);
 
-        final float xs = interpHermite(xf - x0);
-        final float ys = interpHermite(yf - y0);
+        final float xs = interpHermite((float) (xf - x0));
+        final float ys = interpHermite((float) (yf - y0));
 
         x0 *= PrimeX;
         y0 *= PrimeY;
@@ -1854,9 +1854,9 @@ public class FastNoiseLite {
         int y0 = (int) Math.floor(yf);
         int z0 = (int) Math.floor(zf);
 
-        final float xs = interpHermite(xf - x0);
-        final float ys = interpHermite(yf - y0);
-        final float zs = interpHermite(zf - z0);
+        final float xs = interpHermite((float) (xf - x0));
+        final float ys = interpHermite((float) (yf - y0));
+        final float zs = interpHermite((float) (zf - z0));
 
         x0 *= PrimeX;
         y0 *= PrimeY;
@@ -1920,8 +1920,8 @@ public class FastNoiseLite {
 
         int i = (int) Math.floor(x);
         int j = (int) Math.floor(y);
-        final float xi = x - i;
-        final float yi = y - j;
+        final float xi = (float) (x - i);
+        final float yi = (float) (y - j);
 
         final float t = (xi + yi) * G2;
         final float x0 = xi - t;
@@ -2057,12 +2057,12 @@ public class FastNoiseLite {
          * x = r - x; y = r - y; z = r - z;
          */
 
-        int i = Math.round(x);
-        int j = Math.round(y);
-        int k = Math.round(z);
-        float x0 = x - i;
-        float y0 = y - j;
-        float z0 = z - k;
+        int i = (int) Math.round(x);
+        int j = (int) Math.round(y);
+        int k = (int) Math.round(z);
+        float x0 = (float) (x - i);
+        float y0 = (float) (y - j);
+        float z0 = (float) (z - k);
 
         int xNSign = (int) (-x0 - 1.0f) | 1;
         int yNSign = (int) (-y0 - 1.0f) | 1;
