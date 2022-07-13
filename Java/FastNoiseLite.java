@@ -123,8 +123,9 @@ public class FastNoiseLite {
     /// <remarks>
     /// Default: 1337
     /// </remarks>
-    public void setSeed(final int seed) {
+    public FastNoiseLite setSeed(final int seed) {
         this.seed = seed;
+        return this;
     }
 
     /// <summary>
@@ -133,8 +134,9 @@ public class FastNoiseLite {
     /// <remarks>
     /// Default: 0.01
     /// </remarks>
-    public void setFrequency(final float frequency) {
+    public FastNoiseLite setFrequency(final float frequency) {
         this.frequency = frequency;
+        return this;
     }
 
     /// <summary>
@@ -143,9 +145,10 @@ public class FastNoiseLite {
     /// <remarks>
     /// Default: OpenSimplex2
     /// </remarks>
-    public void setNoiseType(final NoiseType noiseType) {
+    public FastNoiseLite setNoiseType(final NoiseType noiseType) {
         this.noiseType = noiseType;
         updateTransformType3D();
+        return this;
     }
 
     /// <summary>
@@ -155,10 +158,11 @@ public class FastNoiseLite {
     /// <remarks>
     /// Default: None
     /// </remarks>
-    public void setRotationType3D(final RotationType3D rotationType3D) {
+    public FastNoiseLite setRotationType3D(final RotationType3D rotationType3D) {
         this.rotationType3D = rotationType3D;
         updateTransformType3D();
         updateWarpTransformType3D();
+        return this;
     }
 
     /// <summary>
@@ -168,8 +172,9 @@ public class FastNoiseLite {
     /// Default: None
     /// Note: FractalType.DomainWarp... only affects DomainWarp(...)
     /// </remarks>
-    public void setFractalType(final FractalType fractalType) {
+    public FastNoiseLite setFractalType(final FractalType fractalType) {
         this.fractalType = fractalType;
+        return this;
     }
 
     /// <summary>
@@ -178,9 +183,10 @@ public class FastNoiseLite {
     /// <remarks>
     /// Default: 3
     /// </remarks>
-    public void setFractalOctaves(final int octaves) {
+    public FastNoiseLite setFractalOctaves(final int octaves) {
         this.octaves = octaves;
         calculateFractalBounding();
+        return this;
     }
 
     /// <summary>
@@ -189,8 +195,9 @@ public class FastNoiseLite {
     /// <remarks>
     /// Default: 2.0
     /// </remarks>
-    public void setFractalLacunarity(final float lacunarity) {
+    public FastNoiseLite setFractalLacunarity(final float lacunarity) {
         this.lacunarity = lacunarity;
+        return this;
     }
 
     /// <summary>
@@ -199,9 +206,10 @@ public class FastNoiseLite {
     /// <remarks>
     /// Default: 0.5
     /// </remarks>
-    public void setFractalGain(final float gain) {
+    public FastNoiseLite setFractalGain(final float gain) {
         this.gain = gain;
         calculateFractalBounding();
+        return this;
     }
 
     /// <summary>
@@ -211,8 +219,9 @@ public class FastNoiseLite {
     /// Default: 0.0
     /// Note: Keep between 0...1 to maintain -1...1 output bounding
     /// </remarks>
-    public void setFractalWeightedStrength(final float weightedStrength) {
+    public FastNoiseLite setFractalWeightedStrength(final float weightedStrength) {
         this.weightedStrength = weightedStrength;
+        return this;
     }
 
     /// <summary>
@@ -221,8 +230,9 @@ public class FastNoiseLite {
     /// <remarks>
     /// Default: 2.0
     /// </remarks>
-    public void setFractalPingPongStrength(final float pingPongStrength) {
+    public FastNoiseLite setFractalPingPongStrength(final float pingPongStrength) {
         this.pingPongStrength = pingPongStrength;
+        return this;
     }
 
 
@@ -232,8 +242,9 @@ public class FastNoiseLite {
     /// <remarks>
     /// Default: Distance
     /// </remarks>
-    public void setCellularDistanceFunction(final CellularDistanceFunction cellularDistanceFunction) {
+    public FastNoiseLite setCellularDistanceFunction(final CellularDistanceFunction cellularDistanceFunction) {
         this.cellularDistanceFunction = cellularDistanceFunction;
+        return this;
     }
 
     /// <summary>
@@ -242,8 +253,9 @@ public class FastNoiseLite {
     /// <remarks>
     /// Default: EuclideanSq
     /// </remarks>
-    public void setCellularReturnType(final CellularReturnType cellularReturnType) {
+    public FastNoiseLite setCellularReturnType(final CellularReturnType cellularReturnType) {
         this.cellularReturnType = cellularReturnType;
+        return this;
     }
 
     /// <summary>
@@ -253,8 +265,9 @@ public class FastNoiseLite {
     /// Default: 1.0
     /// Note: Setting this higher than 1 will cause artifacts
     /// </remarks>
-    public void setCellularJitter(final float cellularJitter) {
+    public FastNoiseLite setCellularJitter(final float cellularJitter) {
         this.cellularJitterModifier = cellularJitter;
+        return this;
     }
 
 
@@ -264,9 +277,10 @@ public class FastNoiseLite {
     /// <remarks>
     /// Default: OpenSimplex2
     /// </remarks>
-    public void setDomainWarpType(final DomainWarpType domainWarpType) {
+    public FastNoiseLite setDomainWarpType(final DomainWarpType domainWarpType) {
         this.domainWarpType = domainWarpType;
         updateWarpTransformType3D();
+        return this;
     }
 
 
@@ -276,8 +290,9 @@ public class FastNoiseLite {
     /// <remarks>
     /// Default: 1.0
     /// </remarks>
-    public void setDomainWarpAmp(final float domainWarpAmp) {
+    public FastNoiseLite setDomainWarpAmp(final float domainWarpAmp) {
         this.domainWarpAmp = domainWarpAmp;
+        return this;
     }
 
 
